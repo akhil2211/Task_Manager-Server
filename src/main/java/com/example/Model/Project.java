@@ -45,4 +45,7 @@ public class Project {
     @Column
     @NonNull
     private String project_status;
+
+    @Column
+    private String client;
 }

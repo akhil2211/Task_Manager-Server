@@ -50,7 +50,6 @@ public class GmController {
     public String removeMember(@PathVariable Integer user_id,@PathVariable Integer project_id) {
         gmService.removeMember(user_id,project_id);
         return "Project Member Removed";
-
     }
 
 }

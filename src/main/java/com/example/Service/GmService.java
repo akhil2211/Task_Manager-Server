@@ -38,6 +38,7 @@ public class GmService {
         projectdata.setProject_status(project.getProject_status());
         projectdata.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
         projectdata.setDue_date(project.getDue_date());
+        projectdata.setClient(project.getClient());
 
         projectRepo.save(projectdata);
         OrgProject orgProject=new OrgProject();
@@ -87,4 +88,5 @@ public class GmService {
     public void removeMember(Integer user_id,Integer project_id) {
         projectUserRepo.removeMemberByUserId(user_id,project_id);
     }
+
 }
