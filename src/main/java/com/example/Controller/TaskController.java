@@ -65,7 +65,7 @@ public class TaskController {
         return new ResponseEntity<>(taskService.getAllTaskPriority(),HttpStatus.OK);
     }
     @GetMapping("/MyTasks")
-    public ResponseEntity<List<Task>> getTaskbyAssigned() {
+    public ResponseEntity <List<Map<String,Object>>> getTaskbyAssigned() {
         return new ResponseEntity<>(taskService.getTaskbyAssigned(),HttpStatus.OK);
     }
     @GetMapping("/searchTask")

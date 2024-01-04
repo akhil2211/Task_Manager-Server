@@ -158,7 +158,7 @@ public class TaskService {
         Integer currentUserId = AppContextHolder.getUserId();
         return taskRepo.findByAssignee(currentUserId);
     }
-    public List<Task> getTaskbyAssigned() {
+    public  List<Map<String,Object>>getTaskbyAssigned() {
         Integer currentUserId = AppContextHolder.getUserId();
         return taskRepo.findByAssigned(currentUserId);
     }

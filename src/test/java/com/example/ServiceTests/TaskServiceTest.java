@@ -183,7 +183,7 @@ class TaskServiceTest {
         try (MockedStatic mocked = mockStatic(AppContextHolder.class)) {
             when(AppContextHolder.getUserId()).thenReturn(user.getId());
             when(taskRepo.findByAssigned(1)).thenReturn(new ArrayList<>());
-            List<Task> result = taskService.getTaskbyAssigned();
+            List<Map<String,Object>> result = taskService.getTaskbyAssigned();
             assertEquals(new ArrayList<>(), result);
         }
     }

@@ -19,9 +19,9 @@ public class CommentController {
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
-    @PostMapping("/add/{userid}/{taskid}")
-    public Comment addComment(@PathVariable Integer userid, @PathVariable Integer taskid, @RequestBody Comment comment) {
-        return commentService.addComment(userid,taskid,comment);
+    @PostMapping("/add/{taskid}")
+    public Comment addComment( @PathVariable Integer taskid, @RequestBody Comment comment) {
+        return commentService.addComment(taskid,comment);
     }
     @GetMapping("/all/{taskid}")
     public List<Comment> findTaskComments(@PathVariable Integer taskid) {

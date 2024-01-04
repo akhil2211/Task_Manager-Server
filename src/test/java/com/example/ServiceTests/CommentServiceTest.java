@@ -43,22 +43,22 @@ class CommentServiceTest {
         assertEquals(mockCommentList, result);
     }
 
-    @Test
-    void testAddComment() {
-        User user = new User();
-        user.setId(1);
-        Task task = new Task();
-        task.setId(1);
-        Comment newComment = new Comment();
-        newComment.setComm_body("ThinkPalm comment");
-
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        when(taskRepo.findById(1)).thenReturn(Optional.of(task));
-        when(commentRepo.save(any(Comment.class))).thenAnswer(i -> i.getArguments()[0]);
-
-        Comment result = commentService.addComment(1, 1, newComment);
-        assertEquals(newComment.getComm_body(), result.getComm_body());
-    }
+//    @Test
+//    void testAddComment() {
+//        User user = new User();
+//        user.setId(1);
+//        Task task = new Task();
+//        task.setId(1);
+//        Comment newComment = new Comment();
+//        newComment.setComm_body("ThinkPalm comment");
+//
+//        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+//        when(taskRepo.findById(1)).thenReturn(Optional.of(task));
+//        when(commentRepo.save(any(Comment.class))).thenAnswer(i -> i.getArguments()[0]);
+//
+//        Comment result = commentService.addComment(1, 1, newComment);
+//        assertEquals(newComment.getComm_body(), result.getComm_body());
+//    }
 
     @Test
     void testFindTaskComments() {

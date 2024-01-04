@@ -1,5 +1,6 @@
 package com.example.Service;
 
+import com.example.CustomContextHolder.AppContextHolder;
 import com.example.Model.Comment;
 import com.example.Model.Task;
 import com.example.Model.User;
@@ -29,8 +30,8 @@ public class CommentService {
     public List<Comment> getallComments(){
         return (List<Comment>) commentRepo.findAll();
     }
-    public Comment addComment(Integer userid, Integer taskid, Comment comment) {
-        User currentuser= userRepository.findById(userid).orElse(null);
+    public Comment addComment(Integer taskid, Comment comment) {
+        User currentuser= userRepository.findById(AppContextHolder.getUserId()).orElse(null);
         Task currenttask= taskRepo.findById(taskid).orElse(null);
         if(currentuser!= null && currenttask!= null){
             Comment currentcomment= new Comment();

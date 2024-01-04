@@ -40,7 +40,7 @@ public class TaskRepoTest {
 
       @Test
         public void getByAssignedTest(){
-            List<Task> task=taskRepo.findByAssigned(4);
+          List<Map<String,Object>>task=taskRepo.findByAssigned(4);
             Assertions.assertThat(task.size()).isGreaterThan(0);
 
     }
