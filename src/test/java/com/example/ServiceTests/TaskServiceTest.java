@@ -150,10 +150,10 @@ class TaskServiceTest {
 
     @Test
     void testGetTaskByProject() {
-        List<Task> mockTaskList = new ArrayList<>();
+        List<Map<String,Object>> mockTaskList = new ArrayList<>();
         when(taskRepo.findByProject(1)).thenReturn(mockTaskList);
 
-        List<Task> result = taskService.getTaskByProject(1);
+        List<Map<String,Object>> result = taskService.getTaskByProject(1);
         assertEquals(mockTaskList, result);
     }
 

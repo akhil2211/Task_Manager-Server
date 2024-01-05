@@ -146,7 +146,7 @@ public class TaskService {
         return taskRepo.findByTaskCode(t_code);
     }
 
-    public List<Task> getTaskByProject(Integer project_id) {
+    public List<Map<String,Object>> getTaskByProject(Integer project_id) {
         return taskRepo.findByProject(project_id);
     }
 

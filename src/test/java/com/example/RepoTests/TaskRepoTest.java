@@ -24,7 +24,7 @@ public class TaskRepoTest {
 
     @Test
     public void getByProject(){
-            List<Task> tasks=taskRepo.findByProject(1);
+        List<Map<String,Object>>tasks=taskRepo.findByProject(1);
             Assertions.assertThat(tasks.size()).isGreaterThan(0);
         }
 

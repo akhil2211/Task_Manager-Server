@@ -45,7 +45,7 @@ public class TaskController {
     }
 
     @GetMapping("/{project_id}/task")
-    public ResponseEntity<List<Task>> getTaskByProject(@PathVariable Integer project_id) {
+    public ResponseEntity <List<Map<String,Object>>> getTaskByProject(@PathVariable Integer project_id) {
         return new ResponseEntity<>(taskService.getTaskByProject(project_id),HttpStatus.OK);
     }
     @GetMapping("/{t_status}/taskStatus")
