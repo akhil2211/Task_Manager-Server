@@ -136,7 +136,7 @@ public class TaskService {
         return taskRepo.findAll();
     }
 
-      public List<String> getTaskHistory(Integer taskId) {
+      public List<Map<String,Object>> getTaskHistory(Integer taskId) {
 
       return taskHistoryRepo.getHistory(taskId);
 

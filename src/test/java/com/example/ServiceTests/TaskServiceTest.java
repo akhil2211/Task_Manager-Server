@@ -133,10 +133,10 @@ class TaskServiceTest {
 
     @Test
     void testGetTaskHistory() {
-        List<String> mockHistory = new ArrayList<>();
+        List<Map<String,Object>>mockHistory = new ArrayList<>();
         when(taskHistoryRepo.getHistory(1)).thenReturn(mockHistory);
 
-        List<String> result = taskService.getTaskHistory(1);
+        List<Map<String,Object>> result = taskService.getTaskHistory(1);
         assertEquals(mockHistory, result);
     }
 

@@ -73,7 +73,7 @@ public class TaskController {
         return new ResponseEntity<>(taskService.searchTask(taskName),HttpStatus.OK);
     }
     @GetMapping("/{taskId}/taskHistory")
-    public ResponseEntity<List<String>> getTaskHistory(@PathVariable Integer taskId) {
+    public ResponseEntity <List<Map<String,Object>>> getTaskHistory(@PathVariable Integer taskId) {
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.getTaskHistory(taskId));
     }
     @PostMapping("/{taskId}/editTask")
