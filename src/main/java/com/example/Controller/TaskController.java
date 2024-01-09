@@ -48,9 +48,13 @@ public class TaskController {
     public ResponseEntity <List<Map<String,Object>>> getTaskByProject(@PathVariable Integer project_id) {
         return new ResponseEntity<>(taskService.getTaskByProject(project_id),HttpStatus.OK);
     }
-    @GetMapping("/{t_status}/taskStatus")
-    public ResponseEntity<List<Task>> getTaskbyStatus(@PathVariable String t_status) {
-        return new ResponseEntity<>(taskService.getTaskbyStatus(t_status),HttpStatus.OK);
+    @GetMapping("/{t_status}/assignedTaskStatus")
+    public ResponseEntity<List<Map<String,Object>>> getAssignedTaskbyStatus(@PathVariable String t_status) {
+        return new ResponseEntity<>(taskService.getAssignedTaskbyStatus(t_status),HttpStatus.OK);
+    }
+    @GetMapping("/{t_status}/myTaskStatus")
+    public ResponseEntity<List<Map<String,Object>>> getMyTasksByStatus(@PathVariable String t_status) {
+        return new ResponseEntity<>(taskService.getMyTasksByStatus(t_status),HttpStatus.OK);
     }
     @GetMapping("/AssignedTasks")
     public ResponseEntity<List<Map<String,Object>>> getTaskbyAssignee() {

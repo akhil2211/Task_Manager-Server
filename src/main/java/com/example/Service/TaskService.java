@@ -69,6 +69,7 @@ public class TaskService {
         Assignment assignment=assignmentRepo.findAssignmentByTask(newTaskId).orElse(null);
         taskHistory.setPrevioususer(assignment.getAssigned_to());
         taskHistory.setUnassigned_at(Timestamp.valueOf(LocalDateTime.now()));
+        taskHistory.setAssigned_at(assignment.getCreated_at());
         taskHistoryRepo.save(taskHistory);
         assignment.setAssigned_to(user);
         assignmentRepo.save(assignment);
@@ -116,6 +117,7 @@ public class TaskService {
 
         assignment.setAssignee_id(assignee);
         assignment.setTask(taskdata);
+        assignment.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
         assignmentRepo.save(assignment);
 
 
@@ -150,8 +152,14 @@ public class TaskService {
         return taskRepo.findByProject(project_id);
     }
 
-    public List<Task> getTaskbyStatus(String tStatus) {
-        return taskRepo.findByTaskStatus(tStatus);
+    public List<Map<String,Object>> getAssignedTaskbyStatus(String tStatus) {
+        Integer currentUserId = AppContextHolder.getUserId();
+        return taskRepo.findAssignedByTaskStatus(currentUserId,tStatus);
+    }
+
+    public List<Map<String,Object>> getMyTasksByStatus(String tStatus) {
+        Integer currentUserId = AppContextHolder.getUserId();
+        return taskRepo.findMyTasksByStatus(currentUserId,tStatus);
     }
 
     public List<Map<String,Object>> getTaskbyAssignee() {

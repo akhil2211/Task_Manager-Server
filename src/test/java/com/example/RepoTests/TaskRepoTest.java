@@ -27,12 +27,12 @@ public class TaskRepoTest {
         List<Map<String,Object>>tasks=taskRepo.findByProject(1);
             Assertions.assertThat(tasks.size()).isGreaterThan(0);
         }
-
-    @Test
-    public void getByProjectStatus(){
-        List<Task> tasks=taskRepo.findByTaskStatus("Active");
-        Assertions.assertThat(tasks.size()).isGreaterThan(0);
-    }
+//
+//    @Test
+//    public void getByProjectStatus(){
+//        List<Task> tasks=taskRepo.findByTaskStatus("Active");
+//        Assertions.assertThat(tasks.size()).isGreaterThan(0);
+//    }
     @Test
     public void getByAssigneeTest(){
       List<Map<String,Object>> task=taskRepo.findByAssignee(2);

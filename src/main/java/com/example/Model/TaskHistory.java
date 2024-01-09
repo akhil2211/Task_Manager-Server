@@ -30,6 +30,12 @@ public class TaskHistory {
 
     @Column
     @NonNull
+    private Timestamp assigned_at;
+
+    @Column
+    @NonNull
     private Timestamp unassigned_at;
+
+
 
 }

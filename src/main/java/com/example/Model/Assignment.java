@@ -3,6 +3,8 @@ package com.example.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -32,6 +34,9 @@ public class Assignment {
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
+
+    @Column
+    private Timestamp created_at;
 
 }
 

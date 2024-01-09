@@ -157,14 +157,14 @@ class TaskServiceTest {
         assertEquals(mockTaskList, result);
     }
 
-    @Test
-    void testGetTaskbyStatus() {
-        List<Task> mockTaskList = new ArrayList<>();
-        when(taskRepo.findByTaskStatus("New")).thenReturn(mockTaskList);
-
-        List<Task> result = taskService.getTaskbyStatus("New");
-        assertEquals(mockTaskList, result);
-    }
+//    @Test
+//    void testGetTaskbyStatus() {
+//        List<Task> mockTaskList = new ArrayList<>();
+//        when(taskRepo.findByTaskStatus("New")).thenReturn(mockTaskList);
+//
+//        List<Task> result = taskService.getTaskbyStatus("New");
+//        assertEquals(mockTaskList, result);
+//    }
 
     @Test
     void testGetTaskbyAssignee() {
