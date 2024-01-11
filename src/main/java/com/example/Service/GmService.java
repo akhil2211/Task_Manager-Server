@@ -1,5 +1,6 @@
 package com.example.Service;
 
+import com.example.CustomContextHolder.AppContextHolder;
 import com.example.Model.*;
 import com.example.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,12 @@ public class GmService {
     public List<Project> getProjectbyStatus(String projStatus) {
         return projectRepo.findByProjectStatus(projStatus);
     }
+
+    public List<Map<String,Object>> getProjectTasksByStatus(String tStatus,Integer projectId) {
+        Project project= projectRepo.findById(projectId).orElse(null);
+        return projectRepo.findProjectTasksByStatus(tStatus,projectId);
+    }
+
     public List<Map<String, Object>> getProjectByOrganization(Integer org_id) {
         return orgProjectRepo.findProjectByOrganization(org_id);
     }

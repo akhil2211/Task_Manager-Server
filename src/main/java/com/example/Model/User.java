@@ -47,9 +47,6 @@ public class User implements UserDetails
     @Column
     private Timestamp modified_at;
 
-    @Column
-    private String client;
-
     @ManyToOne
     @JoinColumn(name="Reporting_Officer_id")
     private User Reporting_Officer;

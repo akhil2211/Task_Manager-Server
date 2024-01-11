@@ -162,13 +162,18 @@ public class TaskService {
         return taskRepo.findMyTasksByStatus(currentUserId,tStatus);
     }
 
-    public List<Map<String,Object>> getTaskbyAssignee() {
+      public List<Map<String,Object>> getTaskbyAssignee() {
         Integer currentUserId = AppContextHolder.getUserId();
         return taskRepo.findByAssignee(currentUserId);
     }
     public  List<Map<String,Object>>getTaskbyAssigned() {
         Integer currentUserId = AppContextHolder.getUserId();
         return taskRepo.findByAssigned(currentUserId);
+    }
+
+    public List<Map<String,Object>> getAssignedTasksByName(String assignedTo) {
+        Integer currentUserId = AppContextHolder.getUserId();
+        return taskRepo.findAssignedTasksByName(currentUserId,assignedTo);
     }
 
     public String editTaskStatus(Integer taskId, String newTaskStatus) {

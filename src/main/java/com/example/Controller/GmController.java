@@ -42,6 +42,11 @@ public class GmController {
     {
         return ResponseEntity.status(HttpStatus.CREATED).body(gmService.createProject(project,orgId));
     }
+    @GetMapping("{t_status}/tasks/{project_id}")
+     public ResponseEntity<List<Map<String,Object>>> findProjectTasksByStatus(@PathVariable String t_status,@PathVariable Integer project_id) {
+        return new ResponseEntity<>(gmService.getProjectTasksByStatus(t_status,project_id),HttpStatus.OK);
+    }
+
     @GetMapping("/{projStatus}/ProjectStatus")
     public ResponseEntity<List<Project>> getProjectbyStatus(@PathVariable String projStatus) {
         return new ResponseEntity<>(gmService.getProjectbyStatus(projStatus),HttpStatus.OK);

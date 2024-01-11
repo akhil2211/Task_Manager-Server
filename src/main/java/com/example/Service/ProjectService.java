@@ -1,5 +1,6 @@
 package com.example.Service;
 
+import com.example.CustomContextHolder.AppContextHolder;
 import com.example.Model.*;
 import com.example.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ public class ProjectService {
     public List<Map<String,Object>> getUserByProject(Integer projectId) {
         return projectUserRepo.getProjectUsers(projectId);
     }
-
     public Project getProjectById(Integer projectId) {
         return projectRepo.getProjectById(projectId);
     }

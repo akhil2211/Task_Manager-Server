@@ -2,7 +2,6 @@ package com.example.Service;
 
 
 import com.example.CustomContextHolder.AppContextHolder;
-import com.example.Model.Task;
 import com.example.Model.User;
 import com.example.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +48,8 @@ public class UserService {
         return userRepo.searchUserByName(value);
     }
 
+    public Map<String,Object> getUserProfile() {
+        Integer currentUserId = AppContextHolder.getUserId();
+        return userRepo.findUserProfile(currentUserId);
+    }
 }

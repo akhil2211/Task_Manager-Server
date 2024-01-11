@@ -19,13 +19,11 @@ import java.util.Optional;
 
 public class UserController {
     private final UserService userService;
-    private final AdminService adminService;
     @Autowired
     private  UserRepository userRepository;
     @Autowired
-    public UserController(UserService userService, AdminService adminService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.adminService = adminService;
     }
 
     @GetMapping("/profile/{user_id}")
@@ -33,13 +31,12 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserDetails(user_id));
     }
     @GetMapping("/currentUserProfile")
-    public ResponseEntity<Optional<User>> getCurrentUser() {
+    public ResponseEntity<Map<String,Object>> getCurrentUser() {
         Integer currentUserId = AppContextHolder.getUserId();
         Optional<User> userDetails=userRepository.findById(currentUserId);
         userDetails.get().setPassword("");
-        return ResponseEntity.status(HttpStatus.OK).body(userDetails);
+        return new ResponseEntity<>(userService.getUserProfile(),HttpStatus.OK);
     }
-
     @GetMapping("/{user_id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer user_id) {
         User user = userService.getUserById(user_id);
