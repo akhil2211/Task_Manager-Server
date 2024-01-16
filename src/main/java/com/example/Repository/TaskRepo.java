@@ -9,6 +9,9 @@ import java.util.Map;
 
 
 public interface TaskRepo extends CrudRepository<Task, Integer> {
+
+    @Query(value = "select * from task  where t_title = ?1 or t_code = ?2",nativeQuery = true)
+    List<Task> existByTitleOrCode(String tTitle, String tCode);
     @Query(value = "select* from task where t_code=?", nativeQuery = true)
     Task findByTaskCode(String t_code);
     @Query(value = "select t.*,u.firstname,u.lastname,p.project_name from task as t inner join assignment as a on t.id=a.task_id inner join user as u on u.id=a.assigned_to inner join project as p on p.id=t.project_id where project_id=?;", nativeQuery = true)

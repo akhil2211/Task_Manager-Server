@@ -99,6 +99,12 @@ public class TaskService {
     }
 
     public void makeTask(TaskRequest task, Integer currentUserId) {
+
+        if(!taskRepo.existByTitleOrCode(task.getT_title(),task.getT_code()).isEmpty()) {
+            throw new RuntimeException("Task Code or Task Title already exists!");
+         }
+
+        else {
         Task taskdata = new Task();
         taskdata.setT_code(task.getT_code());
         taskdata.setT_title(task.getT_title());
@@ -132,6 +138,7 @@ public class TaskService {
         taskPriority.setTask(taskdata);
         taskPriority.setPriority(prior);
         taskPriorityRepo.save(taskPriority);
+     }
     }
 
     public Iterable<Task> getAllTasks() {

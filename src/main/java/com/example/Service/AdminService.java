@@ -39,45 +39,50 @@ public class AdminService {
 
 
     public ResponseEntity<Object> register(RegisterRequest registerRequest) {
-        try {
 
-            if (userRepository.existsByEmail(registerRequest.getEmail()) && userRepository.existsByUsername(registerRequest.getUsername())) {
+        if (!userRepository.existByUsernameOrEmail(registerRequest.getUsername(), registerRequest.getEmail()).isEmpty()) {
+            throw new RuntimeException("Username or E-mail already exists!");
+        } else {
+            try {
+
+                if (userRepository.existsByEmail(registerRequest.getEmail()) && userRepository.existsByUsername(registerRequest.getUsername())) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body("Duplicate entries for both email and username. Both already exist.");
+                }
+                if (userRepository.existsByEmail(registerRequest.getEmail())) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicate entry for email. This email already exists.");
+                }
+
+                if (userRepository.existsByUsername(registerRequest.getUsername())) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body("Duplicate entry for username. This username already exists.");
+                }
+                User user = new User();
+                user.setFirstname(registerRequest.getFirstname());
+                user.setLastname(registerRequest.getLastname());
+                user.setUsername(registerRequest.getUsername());
+                user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+                user.setEmail(registerRequest.getEmail());
+                user.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
+                Role role = roleRepo.findById(Integer.valueOf(registerRequest.getRoleId())).orElse(null);
+                user.setRole(role);
+                Organization organization = organizationRepo.findById(Integer.valueOf(registerRequest.getOrgId())).orElse(null);
+                user.setOrganization(organization);
+                if (registerRequest.getReporting_officer_id() != null) {
+                    User reporting_officer = userRepository.findById((registerRequest.getReporting_officer_id())).orElse(null);
+                    if (reporting_officer != null) {
+                        user.setReporting_Officer(reporting_officer);
+                    }
+                }
+
+                var savedUser = userRepository.save(user);
+                return ResponseEntity.ok(savedUser);
+            } catch (DataIntegrityViolationException ex) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Duplicate entries for both email and username. Both already exist.");
+                        .body("Duplicate entry found. Please check your input and try again.");
             }
-            if (userRepository.existsByEmail(registerRequest.getEmail())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicate entry for email. This email already exists.");
-            }
-
-            if (userRepository.existsByUsername(registerRequest.getUsername())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Duplicate entry for username. This username already exists.");
-            }
-            User user = new User();
-            user.setFirstname(registerRequest.getFirstname());
-            user.setLastname(registerRequest.getLastname());
-            user.setUsername(registerRequest.getUsername());
-            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-            user.setEmail(registerRequest.getEmail());
-            user.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
-            Role role = roleRepo.findById(Integer.valueOf(registerRequest.getRoleId())).orElse(null);
-            user.setRole(role);
-            Organization organization = organizationRepo.findById(Integer.valueOf(registerRequest.getOrgId())).orElse(null);
-            user.setOrganization(organization);
-            if(registerRequest.getReporting_officer_id()!=null){
-            User reporting_officer=userRepository.findById((registerRequest.getReporting_officer_id())).orElse(null);
-            if(reporting_officer!=null){
-            user.setReporting_Officer(reporting_officer);}
-            }
-
-            var savedUser = userRepository.save(user);
-            return ResponseEntity.ok(savedUser);
-        } catch (DataIntegrityViolationException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Duplicate entry found. Please check your input and try again.");
         }
     }
-
     public ResponseEntity<Object> createOrganization(Map<String, String> orgRequest) {
         Organization organization = new Organization();
         organization.setOrg_name(orgRequest.get("org_name"));

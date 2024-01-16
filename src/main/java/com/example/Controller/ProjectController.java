@@ -1,5 +1,6 @@
 package com.example.Controller;
 
+import com.example.CustomContextHolder.AppContextHolder;
 import com.example.Model.Project;
 import com.example.Model.Task;
 import com.example.Model.User;
@@ -43,7 +44,8 @@ public class ProjectController {
     }
     @GetMapping("/{projectId}/userlist")
     public ResponseEntity<List<Map<String,Object>>> findByProject(@PathVariable Integer projectId) {
-        return new ResponseEntity<>(projectService.getUserByProject(projectId), HttpStatus.OK);
+        Integer currentUserId = AppContextHolder.getUserId();
+        return new ResponseEntity<>(projectService.getUserByProject(projectId,currentUserId), HttpStatus.OK);
     }
 
     @PostMapping("/{projectId}/editProjectStatus")

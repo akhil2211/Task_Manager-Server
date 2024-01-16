@@ -13,8 +13,8 @@ public interface ProjectUserRepo extends CrudRepository<ProjectUser,Integer> {
     @Query(value ="select u.*,r.roles from taskmanagerdb.project_user as pu \n" +
             " inner join taskmanagerdb.user as u on pu.user_id=u.id\n" +
             " inner join taskmanagerdb.role as r on r.id = u.role_id \n" +
-            " where pu.project_id=?",nativeQuery = true )
-    List<Map<String,Object>> getProjectUsers(Integer projectId);
+            " where pu.project_id=?1 and u.id!=?2",nativeQuery = true )
+    List<Map<String,Object>> getProjectUsers(Integer projectId, Integer currentUserId);
     @Transactional
     @Modifying
     @Query(value="delete from taskmanagerdb.project_user where user_id=?1 and project_id=?2",nativeQuery = true)

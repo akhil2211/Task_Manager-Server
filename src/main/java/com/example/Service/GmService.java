@@ -31,26 +31,35 @@ public class GmService {
         this.organizationRepo = organizationRepo;
     }
     public String createProject(Project project, Integer orgId) {
+        if (!projectRepo.existByNameOrCode(project.getProject_name(), project.getProject_code()).isEmpty()) {
+            throw new RuntimeException("Project Name or Project Code already exists!");
+        } else {
 
-        Project projectdata=new Project();
-        projectdata.setProject_code(project.getProject_code());
-        projectdata.setProject_name(project.getProject_name());
-        projectdata.setProject_description(project.getProject_description());
-        projectdata.setProject_status(project.getProject_status());
-        projectdata.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
-        projectdata.setDue_date(project.getDue_date());
-        projectdata.setClient(project.getClient());
+            Project projectdata = new Project();
+            projectdata.setProject_code(project.getProject_code());
+            projectdata.setProject_name(project.getProject_name());
+            projectdata.setProject_description(project.getProject_description());
+            projectdata.setProject_status(project.getProject_status());
+            projectdata.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
+            projectdata.setDue_date(project.getDue_date());
+            projectdata.setClient(project.getClient());
 
-        projectRepo.save(projectdata);
-        OrgProject orgProject=new OrgProject();
-        Organization organization=organizationRepo.findById(orgId).orElse(null);
-        orgProject.setOrg(organization);
-        orgProject.setProj(projectdata);
-        orgProjectRepo.save(orgProject);
-        return "Project Created Successfully";
+            projectRepo.save(projectdata);
+            OrgProject orgProject = new OrgProject();
+            Organization organization = organizationRepo.findById(orgId).orElse(null);
+            orgProject.setOrg(organization);
+            orgProject.setProj(projectdata);
+            orgProjectRepo.save(orgProject);
+            User user = userRepository.findById(AppContextHolder.getUserId()).orElse(null);
+            ProjectUser projectUser = new ProjectUser();
+            projectUser.setProject(project);
+            projectUser.setUser(user);
+            projectUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+            projectUserRepo.save(projectUser);
+            return "Project Created Successfully";
 
+        }
     }
-
 
     public String assignProject(Integer projectId, List<Integer> userIds) {
         Project project = projectRepo.findById(projectId).orElse(null);

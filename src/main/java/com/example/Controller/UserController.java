@@ -1,6 +1,7 @@
 package com.example.Controller;
 
 import com.example.CustomContextHolder.AppContextHolder;
+import com.example.Model.Project;
 import com.example.Model.User;
 import com.example.Repository.UserRepository;
 import com.example.Service.AdminService;
@@ -66,6 +67,9 @@ public class UserController {
     public ResponseEntity<List<User>> findByReportingOfficer( ){
         return new ResponseEntity<>(userService.getUserByReportingOfficer(),HttpStatus.OK);
     }
-
+    @GetMapping("/projects")
+    public ResponseEntity <List<Map<String,Object>>> findProjectsByUser( ){
+        return new ResponseEntity<>(userService.getProjectsByUser(),HttpStatus.OK);
+    }
 
 }
