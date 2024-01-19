@@ -64,7 +64,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserByOrganization(organization_id), HttpStatus.OK);
     }
     @GetMapping("/team")
-    public ResponseEntity<List<User>> findByReportingOfficer( ){
+    public ResponseEntity <List<Map<String,Object>>> findByReportingOfficer( ){
         return new ResponseEntity<>(userService.getUserByReportingOfficer(),HttpStatus.OK);
     }
     @GetMapping("/projects")

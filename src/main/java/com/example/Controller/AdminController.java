@@ -51,9 +51,8 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(adminService.createCategory(categoryRequest));
     }
 
-    @GetMapping("/getReportingOfficerList")
-    public ResponseEntity<List<User>> findReportingOfficerList() {
-        return new ResponseEntity<>(userService.getReportingOfficerList(), HttpStatus.OK);
-
+    @GetMapping("/getReportingOfficerList/{roleId}")
+    public ResponseEntity <List<User>> findReportingOfficerList(@PathVariable Integer roleId) {
+        return new ResponseEntity<>(userService.getReportingOfficerList(roleId), HttpStatus.OK);
     }
 }

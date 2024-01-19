@@ -2,7 +2,6 @@ package com.example.Service;
 
 
 import com.example.CustomContextHolder.AppContextHolder;
-import com.example.Model.Project;
 import com.example.Model.User;
 import com.example.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class UserService {
         return user;
 
     }
-    public List<User> getUserByReportingOfficer() {
+    public List<Map<String,Object>> getUserByReportingOfficer() {
         Integer currentUserId = AppContextHolder.getUserId();
         Optional<User> userDetails=userRepo.findById(currentUserId);
         return userRepo.findByReportingOfficer(userDetails.get().getId());
@@ -54,8 +53,9 @@ public class UserService {
         return userRepo.findUserProfile(currentUserId);
     }
 
-    public List<User> getReportingOfficerList() {
-        return userRepo.findReportingOfficerList();
+    public List<User> getReportingOfficerList(Integer roleId) {
+
+        return userRepo.findReportingOfficerList(roleId);
     }
 
     public  List<Map<String,Object>> getProjectsByUser() {
