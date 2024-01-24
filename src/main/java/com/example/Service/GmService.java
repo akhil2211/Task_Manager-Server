@@ -84,9 +84,7 @@ public class GmService {
                 return "No Project Found !";
             }
         }
-    public Iterable<Project> getAllProjects() {
-        return projectRepo.findAll();
-    }
+
 
     public List<Project> getProjectbyStatus(String projStatus) {
         return projectRepo.findByProjectStatus(projStatus);

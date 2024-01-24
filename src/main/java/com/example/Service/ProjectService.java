@@ -40,6 +40,8 @@ public class ProjectService {
     public List<Project> searchProject(String projectName) {
         return projectRepo.searchProjectByName(projectName);
     }
-
+    public Iterable<Project> getAllProjects() {
+        return projectRepo.findAll();
+    }
 }
 

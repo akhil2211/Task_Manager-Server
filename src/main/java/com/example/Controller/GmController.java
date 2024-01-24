@@ -24,11 +24,7 @@ public class GmController {
         this.gmService = gmService;
     }
 
-    @GetMapping("/projectList")
-    public ResponseEntity<Iterable<Project>> getAllProjects() {
-        Iterable<Project> projects = gmService.getAllProjects();
-        return ResponseEntity.ok(projects);
-    }
+
         @PostMapping("/{projectId}/assign")
     public ResponseEntity<String> assignProjectToUser(@RequestBody Map<String, List<Integer>> assignRequest, @PathVariable Integer projectId){
         return new ResponseEntity<>(gmService.assignProject(projectId,assignRequest.get("userIds")), HttpStatus.OK);

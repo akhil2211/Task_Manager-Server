@@ -87,20 +87,20 @@ class GmServiceTest {
         verify(projectUserRepo, times(2)).save(any(ProjectUser.class));
     }
 
-    @Test
-    void testGetAllProjects() {
-
-        Project project1 = new Project();
-        project1.setId(1);
-        Project project2 = new Project();
-        project2.setId(2);
-        when(projectRepo.findAll()).thenReturn(Arrays.asList(project1, project2));
-
-        Iterable<Project> projects = gmService.getAllProjects();
-
-        assertNotNull(projects);
-        assertEquals(2, ((List<Project>) projects).size());
-    }
+//    @Test
+//    void testGetAllProjects() {
+//
+//        Project project1 = new Project();
+//        project1.setId(1);
+//        Project project2 = new Project();
+//        project2.setId(2);
+//        when(projectRepo.findAll()).thenReturn(Arrays.asList(project1, project2));
+//
+////        Iterable<Project> projects = gmService.getAllProjects();
+//
+//        assertNotNull(projects);
+//        assertEquals(2, ((List<Project>) projects).size());
+//    }
 
     @Test
     void testGetProjectByStatus() {

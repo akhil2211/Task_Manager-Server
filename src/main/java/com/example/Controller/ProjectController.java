@@ -53,4 +53,10 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.editProjectStatus(projectId,changeStatusRequest.get("newProjectStatus")));
     }
 
+    @GetMapping("/projectList")
+    public ResponseEntity<Iterable<Project>> getAllProjects() {
+        Iterable<Project> projects = projectService.getAllProjects();
+        return ResponseEntity.ok(projects);
+    }
+
 }

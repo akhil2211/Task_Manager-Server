@@ -67,7 +67,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/project/{projectId}/editProjectStatus").hasAnyRole(GM.name(), PM.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/project/{projectId}/editProjectStatus").hasAnyAuthority(GM_CREATE.name(), PM_CREATE.name())
                         .requestMatchers("/api/v1/project/task/{taskId}/editTask").hasAnyRole(GM.name(), PM.name())
-                        .requestMatchers(HttpMethod.POST, "/api/v1/project/task/{taskId}/editTask").hasAnyAuthority(GM_CREATE.name(), PM_CREATE.name()) 
+                        .requestMatchers(HttpMethod.POST, "/api/v1/project/task/{taskId}/editTask").hasAnyAuthority(GM_CREATE.name(), PM_CREATE.name())
+                        .requestMatchers("/api/v1/project/projectList").hasAnyRole(GM.name(), ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/project/projectList").hasAnyAuthority(GM_READ.name(), ADMIN_READ.name())
                         .anyRequest().authenticated()
 
                 ).sessionManagement(sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
