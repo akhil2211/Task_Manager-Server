@@ -43,12 +43,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   //List<User> findReportingOfficerList(Integer roleId);
   @Query(value = "select p.*,concat(u.firstname,(' '),u.lastname) as User from user u " +
           "inner join project_user pu on pu.user_id=u.id inner join project p on " +
-          "p.id=pu.project_id  where u.id=? ; ", nativeQuery = true)
+          "p.id=pu.project_id  where u.id=? order by p.due_date; ", nativeQuery = true)
   List<Map<String, Object>> findUserProjects(Integer currentUserId);
 
   @Query(value = "select * from user  where username = ?1 or email = ?2", nativeQuery = true)
   List<User> existByUsernameOrEmail(String username, String email);
-  @Query(value = "SELECT * FROM user AS u WHERE (:roleId = 4 AND u.role_id IN (2,3)) OR (:roleId = 3 AND u.role_id = 2)", nativeQuery = true)
+ @Query(value = "SELECT * FROM user AS u WHERE (:roleId = 4 AND u.role_id IN (2,3)) OR (:roleId = 3 AND u.role_id = 2)", nativeQuery = true)
   List<User> findReportingOfficerList(@Param("roleId") Integer roleId);
+
+  @Query(value = "SELECT * FROM user AS u WHERE (:roleId = 2 AND u.role_id IN (3,4)) OR (:roleId = 3 AND u.role_id = 4) order by role_id ", nativeQuery = true)
+  List<User> findLowerLevelUser(@Param("roleId") Integer roleId);
 
 }

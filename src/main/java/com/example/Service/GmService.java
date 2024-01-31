@@ -52,7 +52,7 @@ public class GmService {
             orgProjectRepo.save(orgProject);
             User user = userRepository.findById(AppContextHolder.getUserId()).orElse(null);
             ProjectUser projectUser = new ProjectUser();
-            projectUser.setProject(project);
+            projectUser.setProject(projectdata);
             projectUser.setUser(user);
             projectUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
             projectUserRepo.save(projectUser);
@@ -61,36 +61,7 @@ public class GmService {
         }
     }
 
-    public String assignProject(Integer projectId, List<Integer> userIds) {
-        Project project = projectRepo.findById(projectId).orElse(null);
-        if (project != null) {
-            for (Integer userId : userIds) {
-                String role = userRepository.getUserRole(userId);
-                if (UserRoles.GM.toString().equals(role) || UserRoles.ADMIN.toString().equals(role)) {
-                    return "Cannot project assign to GM or Admin!";
-                } else {
-                    User user = userRepository.findById(userId).orElse(null);
-
-                    ProjectUser projectUser = new ProjectUser();
-                    projectUser.setProject(project);
-                    projectUser.setUser(user);
-                    projectUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-                    projectUserRepo.save(projectUser);
-                }
-            }
-                return "Project Assignment to Users Successful!";
-            }
-        else{
-                return "No Project Found !";
-            }
-        }
-
-
-    public List<Project> getProjectbyStatus(String projStatus) {
-        return projectRepo.findByProjectStatus(projStatus);
-    }
-
-    public List<Map<String,Object>> getProjectTasksByStatus(String tStatus,Integer projectId) {
+        public List<Map<String,Object>> getProjectTasksByStatus(String tStatus,Integer projectId) {
         Project project= projectRepo.findById(projectId).orElse(null);
         return projectRepo.findProjectTasksByStatus(tStatus,projectId);
     }

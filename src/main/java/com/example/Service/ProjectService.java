@@ -14,11 +14,13 @@ import java.util.Map;
 public class ProjectService {
     private final ProjectRepo projectRepo;
     private final ProjectUserRepo projectUserRepo;
+    private final UserRepository userRepository;
 
     @Autowired
     public ProjectService(ProjectRepo projectRepo, OrganizationRepo organizationRepo, OrgProjectRepo orgProjectRepo, UserRepository userRepository, ProjectUserRepo projectUserRepo) {
         this.projectRepo = projectRepo;
         this.projectUserRepo = projectUserRepo;
+        this.userRepository = userRepository;
     }
 
     public List<Map<String,Object>> getUserByProject(Integer projectId, Integer currentUserId) {
@@ -41,7 +43,33 @@ public class ProjectService {
         return projectRepo.searchProjectByName(projectName);
     }
     public Iterable<Project> getAllProjects() {
-        return projectRepo.findAll();
+        return projectRepo.findAllProjects();
+    }
+    public String assignProject(Integer projectId, List<Integer> userIds) {
+        Project project = projectRepo.findById(projectId).orElse(null);
+        if (project != null) {
+            for (Integer userId : userIds) {
+                String role = userRepository.getUserRole(userId);
+                if (UserRoles.GM.toString().equals(role) || UserRoles.ADMIN.toString().equals(role)) {
+                    return "Cannot project assign to GM or Admin!";
+                } else {
+                    User user = userRepository.findById(userId).orElse(null);
+
+                    ProjectUser projectUser = new ProjectUser();
+                    projectUser.setProject(project);
+                    projectUser.setUser(user);
+                    projectUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+                    projectUserRepo.save(projectUser);
+                }
+            }
+            return "Project Assignment to Users Successful!";
+        }
+        else{
+            return "No Project Found !";
+        }
+    }
+    public List<Project> getProjectbyStatus(String projStatus) {
+        return projectRepo.findByProjectStatus(projStatus);
     }
 }
 

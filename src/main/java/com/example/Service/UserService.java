@@ -58,6 +58,11 @@ public class UserService {
         return userRepo.findReportingOfficerList(roleId);
     }
 
+    public List<User> getLowerLevelUser(Integer roleId) {
+
+        return userRepo.findLowerLevelUser(roleId);
+    }
+
     public  List<Map<String,Object>> getProjectsByUser() {
         Integer currentUserId = AppContextHolder.getUserId();
         return userRepo.findUserProjects(currentUserId);

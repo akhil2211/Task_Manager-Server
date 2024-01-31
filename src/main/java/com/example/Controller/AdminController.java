@@ -52,7 +52,8 @@ public class AdminController {
     }
 
     @GetMapping("/getReportingOfficerList/{roleId}")
-    public ResponseEntity <List<User>> findReportingOfficerList(@PathVariable Integer roleId) {
+    public ResponseEntity<List<User>> findReportingOfficerList(@PathVariable Integer roleId) {
         return new ResponseEntity<>(userService.getReportingOfficerList(roleId), HttpStatus.OK);
     }
 }
+

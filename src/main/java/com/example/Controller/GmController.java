@@ -24,11 +24,6 @@ public class GmController {
         this.gmService = gmService;
     }
 
-
-        @PostMapping("/{projectId}/assign")
-    public ResponseEntity<String> assignProjectToUser(@RequestBody Map<String, List<Integer>> assignRequest, @PathVariable Integer projectId){
-        return new ResponseEntity<>(gmService.assignProject(projectId,assignRequest.get("userIds")), HttpStatus.OK);
-    }
     @GetMapping("/organization/{organization_id}")
     public ResponseEntity<List<Map<String, Object>>> findProjectByOrganization(@PathVariable Integer organization_id) {
         return new ResponseEntity<>(gmService.getProjectByOrganization(organization_id), HttpStatus.OK);
@@ -43,10 +38,7 @@ public class GmController {
         return new ResponseEntity<>(gmService.getProjectTasksByStatus(t_status,project_id),HttpStatus.OK);
     }
 
-    @GetMapping("/{projStatus}/ProjectStatus")
-    public ResponseEntity<List<Project>> getProjectbyStatus(@PathVariable String projStatus) {
-        return new ResponseEntity<>(gmService.getProjectbyStatus(projStatus),HttpStatus.OK);
-    }
+
     @DeleteMapping("/removeMember/{user_id}/{project_id}")
     public String removeMember(@PathVariable Integer user_id,@PathVariable Integer project_id) {
         gmService.removeMember(user_id,project_id);

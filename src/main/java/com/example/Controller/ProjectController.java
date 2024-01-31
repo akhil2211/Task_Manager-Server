@@ -47,7 +47,10 @@ public class ProjectController {
         Integer currentUserId = AppContextHolder.getUserId();
         return new ResponseEntity<>(projectService.getUserByProject(projectId,currentUserId), HttpStatus.OK);
     }
-
+    @PostMapping("/{projectId}/assign")
+    public ResponseEntity<String> assignProjectToUser(@RequestBody Map<String, List<Integer>> assignRequest, @PathVariable Integer projectId){
+        return new ResponseEntity<>(projectService.assignProject(projectId,assignRequest.get("userIds")), HttpStatus.OK);
+    }
     @PostMapping("/{projectId}/editProjectStatus")
     public  ResponseEntity<String> editProjectStatus(@PathVariable Integer projectId,@RequestBody Map<String,String> changeStatusRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.editProjectStatus(projectId,changeStatusRequest.get("newProjectStatus")));
@@ -57,6 +60,10 @@ public class ProjectController {
     public ResponseEntity<Iterable<Project>> getAllProjects() {
         Iterable<Project> projects = projectService.getAllProjects();
         return ResponseEntity.ok(projects);
+    }
+    @GetMapping("/{projStatus}/ProjectStatus")
+    public ResponseEntity<List<Project>> getProjectbyStatus(@PathVariable String projStatus) {
+        return new ResponseEntity<>(projectService.getProjectbyStatus(projStatus),HttpStatus.OK);
     }
 
 }

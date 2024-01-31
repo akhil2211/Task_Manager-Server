@@ -71,5 +71,9 @@ public class UserController {
     public ResponseEntity <List<Map<String,Object>>> findProjectsByUser( ){
         return new ResponseEntity<>(userService.getProjectsByUser(),HttpStatus.OK);
     }
+    @GetMapping("/getLowerLevelUser/{roleId}")
+    public ResponseEntity <List<User>> findLowerLevelUser(@PathVariable Integer roleId) {
+        return new ResponseEntity<>(userService.getLowerLevelUser(roleId), HttpStatus.OK);
+    }
 
 }

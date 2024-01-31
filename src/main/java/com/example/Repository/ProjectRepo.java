@@ -27,4 +27,6 @@ public interface ProjectRepo extends JpaRepository<Project,Integer> {
 
     @Query(value = "select * from project  where project_name = ?1 or project_code = ?2",nativeQuery = true)
     List<Project> existByNameOrCode(String projectName, String projectCode);
+    @Query(value = "select * from project order by due_date ",nativeQuery = true)
+    Iterable<Project> findAllProjects();
 }
