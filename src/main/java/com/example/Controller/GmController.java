@@ -39,10 +39,4 @@ public class GmController {
     }
 
 
-    @DeleteMapping("/removeMember/{user_id}/{project_id}")
-    public String removeMember(@PathVariable Integer user_id,@PathVariable Integer project_id) {
-        gmService.removeMember(user_id,project_id);
-        return "Project Member Removed";
-    }
-
 }

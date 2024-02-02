@@ -41,12 +41,13 @@ public interface TaskRepo extends CrudRepository<Task, Integer> {
             "inner join taskmanagerdb.project as proj on proj.id=t.project_id"+
             " WHERE assignee_id=? order by t.created_at DESC ;", nativeQuery = true)
     List<Map<String,Object>> findByAssignee(Integer tAssignee);
-    @Query(value="select t.*,c.c_name,p.type,proj.project_name,proj.client from taskmanagerdb.assignment as a inner JOIN taskmanagerdb.task as t on a.task_id=t.id \n" +
+    @Query(value="select t.*,c.c_name,p.type,proj.project_name,proj.client,a.assignee_id,concat(u.firstname,' ',u.lastname) as full_name from taskmanagerdb.assignment as a inner JOIN taskmanagerdb.task as t on a.task_id=t.id \n" +
             "            inner join taskmanagerdb.task_category as tc on tc.task_id=t.id\n" +
             "            inner join taskmanagerdb.category as c on c.id=tc.category_id\n" +
             "            inner join taskmanagerdb.task_priority as tp on tp.task_id=t.id\n" +
             "            inner join taskmanagerdb.priority as p on p.id=tp.priority_id\n" +
             "            inner join taskmanagerdb.project as proj on proj.id=t.project_id\n" +
+            "            inner join taskmanagerdb.user as u on a.assignee_id=u.id\n" +
             "            WHERE assigned_to=? order by t.created_at DESC",nativeQuery = true)
     List<Map<String,Object>> findByAssigned(Integer tAssigned);
 

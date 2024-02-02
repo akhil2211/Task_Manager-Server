@@ -65,5 +65,10 @@ public class ProjectController {
     public ResponseEntity<List<Project>> getProjectbyStatus(@PathVariable String projStatus) {
         return new ResponseEntity<>(projectService.getProjectbyStatus(projStatus),HttpStatus.OK);
     }
+    @DeleteMapping("/removeMember/{user_id}/{project_id}")
+    public String removeMember(@PathVariable Integer user_id,@PathVariable Integer project_id) {
+        projectService.removeMember(user_id,project_id);
+        return "Project Member Removed";
+    }
 
 }

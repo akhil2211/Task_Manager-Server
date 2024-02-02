@@ -71,5 +71,8 @@ public class ProjectService {
     public List<Project> getProjectbyStatus(String projStatus) {
         return projectRepo.findByProjectStatus(projStatus);
     }
+    public void removeMember(Integer user_id,Integer project_id) {
+        projectUserRepo.removeMemberByUserId(user_id,project_id);
+    }
 }
 
