@@ -14,7 +14,9 @@ public interface TaskRepo extends CrudRepository<Task, Integer> {
     List<Task> existByTitleOrCode(String tTitle, String tCode);
     @Query(value = "select* from task where t_code=?", nativeQuery = true)
     Task findByTaskCode(String t_code);
-    @Query(value = "select t.*,u.firstname,u.lastname,p.project_name from task as t inner join assignment as a on t.id=a.task_id inner join user as u on u.id=a.assigned_to inner join project as p on p.id=t.project_id where project_id=?;", nativeQuery = true)
+    @Query(value = "select t.*,concat(u1.firstname,(' '),u1.lastname) as Assigned_To,concat(u2.firstname,(' '),u2.lastname) as Assigned_By,p.project_name" +
+                   " from task as t inner join assignment as a on t.id=a.task_id inner join user as u1 on u1.id=a.assigned_to inner join user as u2 on u2.id=a.assignee_id " +
+                   "inner join project as p on p.id=t.project_id where project_id=?", nativeQuery = true)
     List<Map<String,Object>> findByProject(Integer projectId);
 
     @Query(value = "select t.*,c.c_name,p.type,proj.project_name,proj.client,u.firstname,u.lastname from taskmanagerdb.assignment as a inner JOIN taskmanagerdb.task as t on a.task_id=t.id inner join taskmanagerdb.user as u on a.assigned_to = u.id \n" +

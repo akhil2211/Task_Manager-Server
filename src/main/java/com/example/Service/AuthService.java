@@ -15,8 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,24 +26,18 @@ public class AuthService {
     private final UserRepository userRepository;
 
     private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
 
     public final AuthenticationManager authenticationManager;
 
-    private final OrganizationRepo organizationRepo;
 
     private final TokenRepo tokenRepo;
 
-    private final RoleRepo roleRepo;
     @Autowired
-    public  AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, OrganizationRepo organizationRepo, TokenRepo tokenRepo, RoleRepo roleRepo){
+    public  AuthService(UserRepository userRepository, JwtService jwtService, AuthenticationManager authenticationManager, TokenRepo tokenRepo){
         this.userRepository=userRepository;
-        this.passwordEncoder=passwordEncoder;
         this.jwtService=jwtService;
         this.authenticationManager=authenticationManager;
-        this.organizationRepo = organizationRepo;
         this.tokenRepo = tokenRepo;
-        this.roleRepo = roleRepo;
     }
 
     private void saveUserToken(User user, String jwtToken) {

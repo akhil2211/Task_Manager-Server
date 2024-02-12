@@ -54,11 +54,11 @@ public class AdminServiceTest {
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
-		registerRequest = new RegisterRequest("Mahesh", "K", "mahesh", "Mahesh@123", "mahesh@gmail.com", "1", "1");
+//		registerRequest = new RegisterRequest("Mahesh", "K", "mahesh", "Mahesh@123", "mahesh@gmail.com", "1", "1");
 	}
 	@Test
 	public void RegisterTest(){
-		RegisterRequest registerRequest = new RegisterRequest("Mahesh", "K", "mahesh", "Mahesh@123", "mahesh@gmail.com", "1", "1");
+//		RegisterRequest registerRequest = new RegisterRequest("Mahesh", "K", "mahesh", "Mahesh@123", "mahesh@gmail.com", "1", "1");
 		when(userRepository.existsByEmail("mahesh@gmail.com")).thenReturn(false);
 		when(userRepository.existsByUsername("mahesh")).thenReturn(false);
 		Mockito.when(appConfiguration.passwordEncoder()).thenReturn(new BCryptPasswordEncoder());
