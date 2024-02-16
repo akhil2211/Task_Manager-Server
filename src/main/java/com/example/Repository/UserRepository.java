@@ -39,8 +39,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
           "user u1 LEFT JOIN user u2 ON u1.reporting_officer_id = u2.id  inner join role as r on u1.role_id=r.id where u1.id=?", nativeQuery = true)
   Map<String, Object> findUserProfile(Integer id);
 
-  //@Query(value="select * from user as u1 where case when ?=4 then u1.role_id in (2,3) when ?=3 then u1.role_id in (2) end;",nativeQuery = true)
-  //List<User> findReportingOfficerList(Integer roleId);
   @Query(value = "select p.*,concat(u.firstname,(' '),u.lastname) as User from user u " +
           "inner join project_user pu on pu.user_id=u.id inner join project p on " +
           "p.id=pu.project_id  where u.id=? order by p.due_date; ", nativeQuery = true)
