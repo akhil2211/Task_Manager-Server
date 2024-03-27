@@ -24,7 +24,6 @@ public class UserService {
     }
 
     public User getUserById(Integer user_id) {
-
         return userRepo.getUserById(user_id);
     }
 
