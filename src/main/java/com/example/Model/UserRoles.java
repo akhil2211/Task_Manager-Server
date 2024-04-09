@@ -41,7 +41,6 @@ public enum UserRoles {
          )
 
     ),
-
     USER(Collections.emptySet());
 
     ;
@@ -57,6 +56,4 @@ public enum UserRoles {
       return authorities;
 
     }
-
-
 }

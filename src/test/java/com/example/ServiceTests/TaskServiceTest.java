@@ -187,7 +187,6 @@ class TaskServiceTest {
             assertEquals(new ArrayList<>(), result);
         }
     }
-
     @Test
     void testEditTaskStatus() {
         when(taskRepo.findById(1)).thenReturn(Optional.of(task));

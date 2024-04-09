@@ -177,12 +177,10 @@ public class TaskService {
         Integer currentUserId = AppContextHolder.getUserId();
         return taskRepo.findByAssigned(currentUserId);
     }
-
     public List<Map<String,Object>> getAssignedTasksByName(String assignedTo) {
         Integer currentUserId = AppContextHolder.getUserId();
         return taskRepo.findAssignedTasksByName(currentUserId,assignedTo);
     }
-
     public String editTaskStatus(Integer taskId, String newTaskStatus) {
         Task task=taskRepo.findById(taskId).orElse(null);
         task.setT_status(newTaskStatus);

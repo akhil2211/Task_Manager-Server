@@ -53,9 +53,7 @@ public String generateToken(UserDetails userDetails){
 
     private Claims extractClaims(String jwt){
      return Jwts.parserBuilder().setSigningKey(getSignInkey()).build().parseClaimsJws(jwt).getBody();
-
     }
-
     private Key getSignInkey() {
         byte[] keyBytes= Decoders.BASE64.decode(key);
         return Keys.hmacShaKeyFor(keyBytes);

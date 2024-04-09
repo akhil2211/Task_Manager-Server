@@ -33,7 +33,7 @@ public class RegisterRequest {
     @PasswordValid
     private String password;
 
-    //    @NotNull
+    //   @NotNull
 //    @NotEmpty
 //    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",flags = Pattern.Flag.CASE_INSENSITIVE,message = "Invalid email")
     @EmailValid

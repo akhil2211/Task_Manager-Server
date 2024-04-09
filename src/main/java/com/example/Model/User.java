@@ -55,7 +55,6 @@ public class User implements UserDetails
     @JoinColumn(name="org_id")
     private Organization organization;
 
-
     @ManyToOne
     @JoinColumn(name="role_id")
     private Role role;

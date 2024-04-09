@@ -41,10 +41,10 @@ public class AdminService {
     public ResponseEntity<Object> register(RegisterRequest registerRequest) {
 
         if (!userRepository.existByUsernameOrEmail(registerRequest.getUsername(), registerRequest.getEmail()).isEmpty()) {
-            throw new RuntimeException("Username or E-mail already exists!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Duplicate entries for  email or username. Either already exists.");
         } else {
             try {
-
                 if (userRepository.existsByEmail(registerRequest.getEmail()) && userRepository.existsByUsername(registerRequest.getUsername())) {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                             .body("Duplicate entries for both email and username. Both already exist.");
@@ -77,7 +77,9 @@ public class AdminService {
 
                 var savedUser = userRepository.save(user);
                 return ResponseEntity.ok(savedUser);
-            } catch (DataIntegrityViolationException ex) {
+
+              }
+            catch (DataIntegrityViolationException ex) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("Duplicate entry found. Please check your input and try again.");
             }
